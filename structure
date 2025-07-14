@@ -1,0 +1,33 @@
+
+Core Features of the Indic Language App
+
+1. Text-to-Video News in Indian Languages
+
+* Converts text-based news articles into videos.
+* Includes region-specific language narration, background visuals, and animated headlines.
+* Useful for users who prefer video content over reading.
+
+2. OCR (Optical Character Recognition)
+
+* Extracts text from printed or handwritten documents/images.
+* Supports multiple Indian scripts such as Devanagari, Tamil, Bengali, etc.
+* Enables digitization of regional language documents.
+
+3. OCR Translation
+
+* Translates extracted text from OCR between Indian languages or into English.
+* Supports bidirectional translation (e.g., Hindi to Tamil and vice versa).
+
+4. Document Summarization in Indian Languages
+
+* Accepts large content like PDFs, official letters, and reports.
+* Provides concise and easy-to-understand summaries in the user’s native language.
+* Useful for students, professionals, and rural users handling complex documents.
+
+5. YouTube Video Translation in Indian Languages
+
+* Extracts and translates spoken content from YouTube videos.
+* Outputs translated content in the form of text, subtitles, or dubbed audio.
+* Helps users understand out-of-region or international videos in their native language.
+
+
