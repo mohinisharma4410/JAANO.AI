@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Article</title>
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+    <div class="overlay" id="overlay">
+        <div class="spinner"></div>
+    </div>
+    <div class="navbar">
+        <div class="navbar-center">
+            <h1>Post Article</h1>
+        </div>
+        <div class="navbar-right">
+            <a href="/gallery">Video Gallery</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            <form id="articleForm" action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+                
+                <label for="article">Article:</label>
+                <textarea id="article" name="article" rows="10" required></textarea>
+                
+                <label for="image">Image (optional):</label>
+                <input type="file" id="image" name="image" accept="image/*">
+                
+                <div class="button-container">
+                    <button type="button" onclick="showPopup()">Post</button>
+                    <button type="button" onclick="generateContent()">Generate</button>
+                </div>
+            </form>
+        </div>
+        <div class="recent-links">
+            <h2>Recent Links</h2>
+            <ul>
+                {% for link in recent_links %}
+            <li><a href="{{ link }}" class="shorten-url">{{ link }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <h2>Preview</h2>
+            <p><strong>Title:</strong> <span id="popup-title"></span></p>
+            <p><strong>Article:</strong></p>
+            <p id="popup-article"></p>
+            <p><strong>Image:</strong></p>
+            <img id="popup-image" src="" alt="" style="max-width: 100%;">
+            <br><br>
+            <button onclick="submitForm()">Submit</button>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <script src="/static/index.js"></script>
+</body>
+</html>

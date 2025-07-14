@@ -1,0 +1,144 @@
+body {
+    font-family: Arial, sans-serif;
+    background: url('/static/winter-blue-pink-gradient-background-vector_53876-117275.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+
+.image-pool {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image-container {
+    width: 220px;
+    height: 170px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+}
+
+.image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;  /* Adjusted from cover to contain */
+}
+
+.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff6666;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+}
+
+#image-upload-form {
+    margin: 20px;
+}
+
+/* Uncomment the display: none for file input if you have a custom file input button */
+/* #image-upload-form input[type="file"] {
+    display: none;
+} */
+
+#image-upload-form input[type="button"] {
+    background-color: #3366cc;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#image-upload-form input[type="button"]:hover {
+    background-color: #2255aa;
+}
+
+#regenerate-all-button {
+    background-color: #ff9933;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 20px;
+    transition: background-color 0.3s;
+}
+
+#regenerate-all-button:hover {
+    background-color: #cc7733;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's above other content */
+
+}
+
+.spinner {
+    border: 6px solid rgba(255, 255, 255, 0.3); /* Light border */
+    border-top: 6px solid #ffffff; /* White top border */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite; /* Rotate animation */
+
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0c85db;
+    padding: 20px 20px;
+}
+
+.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar a, h1 {
+    color: white;
+    text-decoration: none;
+    padding: 14px 20px;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.navbar-right {
+    margin-left: auto;
+}

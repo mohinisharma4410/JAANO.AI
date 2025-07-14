@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Gallery</title>
+    <link rel="stylesheet" href="/static/index.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/static/winter-blue-pink-gradient-background-vector_53876-117275.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .video-box {
+            border: 1px solid hwb(0 56% 44%);
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+            display: inline-block;
+            width: calc(33.33% - 20px); /* Adjust width as per your design */
+            box-sizing: border-box;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden; /* Ensure content within video-box does not overflow */
+        }
+        .video-box:hover {
+            background-color: #f0f0f0;
+        }
+        .video-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .video-container {
+            text-align: center;
+        }
+        .video-player {
+            width: 100%;
+            border-radius: 6px;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(4, 0, 0, 0.872); /* Semi-transparent black overlay */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1; /* Initially visible */
+            transition: opacity 0.3s ease-in-out;
+        }
+        .video-box.playing .video-overlay {
+            opacity: 0; /* Hide overlay when video is playing */
+        }
+        .video-box.playing .video-player {
+            visibility: visible; /* Show video player when video is playing */
+            opacity: 1;
+        }
+        .video-body {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #fff;
+            width: calc(100% - 20px);
+            text-shadow: 1px 1px 2px rgba(10, 0, 0, 0.8); /* Text shadow for better visibility */
+            z-index: 1; /* Ensure text is above the video overlay */
+        }
+        .lang-heading {
+            font-size: 1.2rem;
+            margin: 0;
+            text-align: center;
+            padding-bottom: 100px; /* Center the language heading */
+        }
+        .button {
+            background-color: #ff9933;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: block; /* Ensure the button takes full width of its container */
+            transition: background-color 0.3s;
+            margin: 20px;
+        }
+        .text-above-button {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .container {
+            text-align: center; /* Center align content within container */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-center">
+            <h1>Video Gallery</h1>
+        </div>
+        <div class="navbar-right">
+            <a href="/">Post Article</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="video-title" id="video-title-placeholder">Loading...</h2> <!-- Display the title at the top -->
+        <div id="video-boxes" class="video-container"></div>
+        <div class="text-above-button">
+            <p>Want to add more photos or delete existing ones? Click on <strong>Regenerate</strong>.</p>
+        </div>
+        <div class="regenerate-button">
+            <a href="/image.html" class="button">Regenerate</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/videos')
+                .then(response => response.json())
+                .then(data => {
+                    const videoBoxesContainer = document.getElementById('video-boxes');
+                    const titlePlaceholder = document.getElementById('video-title-placeholder');
+                    titlePlaceholder.textContent = data.title; // Set the title
+
+                    data.videos.forEach(video => {
+                        const lang = video.split('.')[0];
+                        const videoBox = document.createElement('div');
+                        videoBox.classList.add('video-box');
+
+                        const videoPlayer = document.createElement('video');
+                        videoPlayer.classList.add('video-player');
+                        videoPlayer.controls = true;
+                        const videoSource = document.createElement('source');
+                        videoSource.src = `/static/Final_Integration/Videos/${video}`;
+                        videoSource.type = 'video/mp4';
+                        videoPlayer.appendChild(videoSource);
+
+                        const videoOverlay = document.createElement('div');
+                        videoOverlay.classList.add('video-overlay');
+
+                        const videoBody = document.createElement('div');
+                        videoBody.classList.add('video-body');
+                        const langHeading = document.createElement('h3');
+                        langHeading.classList.add('lang-heading');
+                        langHeading.textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
+                        videoBody.appendChild(langHeading);
+
+                        videoBox.appendChild(videoOverlay);
+                        videoBox.appendChild(videoPlayer);
+                        videoBox.appendChild(videoBody);
+                        videoBoxesContainer.appendChild(videoBox);
+
+                        // Event listener to handle play and pause
+                        videoBox.addEventListener('click', function() {
+                            if (videoPlayer.paused) {
+                                videoPlayer.play();
+                                videoBox.classList.add('playing');
+                                videoOverlay.style.display = 'none'; // Hide overlay when video starts playing
+                                langHeading.style.display = 'none'; // Hide language heading when video starts playing
+                            } else {
+                                videoPlayer.pause();
+                                videoBox.classList.remove('playing');
+                                videoOverlay.style.display = 'block'; // Show overlay when video is paused
+                                langHeading.style.display = 'block'; // Show language heading when video is paused
+                            }
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching videos:', error);
+                });
+        });
+    </script>
+</body>
+</html>

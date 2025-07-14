@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/index.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .article-title {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .article-content {
+            font-size: 1.2em;
+            color: #555;
+            text-align: justify;
+        }
+
+        .article-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-footer {
+            margin-top: 30px;
+            text-align: right;
+            font-size: 0.9em;
+            color: #888;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="article-header">
+            <h1 class="article-title">{{ title }}</h1>
+        </div>
+        <div class="article-content">
+            <p>{{ article }}</p>
+            {% for image_filename in image %}
+                <img class="article-image" src="{{ url_for('static', filename='uploads/' + image_filename) }}" alt="Article Image">
+            {% endfor %}
+        </div>
+        <div class="article-footer">
+            Published on {{ date }}
+        </div>
+    </div>
+</body>
+</html>

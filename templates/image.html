@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='image.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-center">
+            <h1>Image Pool</h1>
+        </div>
+        <div class="navbar-right">
+            <a href="/gallery">Video Gallery</a>
+        </div>
+    </div>
+    <div class="overlay" id="overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <form id="image-upload-form" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*">
+        <input type="button" value="Upload Image" onclick="uploadImage()">
+    </form>
+    <button id="regenerate-all-button">Regenerate</button>
+
+    <div class="image-pool">
+        {% for image in images %}
+            {% if image not in deleted_images %}
+                <div class="image-container" id="container-{{ image }}">
+                    <img src="{{ url_for('static', filename='Final_Integration/Resized_images/' + image) }}" alt="{{ image }}" width="200" height="200">
+                    <button class="delete-button" data-image="{{ image }}">X</button>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <script>
+        document.getElementById("regenerate-all-button").addEventListener("click", function() {
+            // Show loading spinner
+            document.getElementById('overlay').style.display = 'flex';
+
+            fetch('/regenerate', {
+                method: 'POST',
+                body: JSON.stringify({}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Hide loading spinner
+                document.getElementById('overlay').style.display = 'none';
+                if (data.success) {
+                    alert('Images resized and video generated successfully! Redirecting to the video gallery.');
+                    redirectToGallery(); // Redirect to gallery page
+                } else {
+                    alert('Failed to resize images and generate video.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Hide loading spinner
+                document.getElementById('overlay').style.display = 'none';
+                alert('An error occurred while resizing images and generating the video.');
+            });
+        });
+
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const imageContainer = this.parentElement;
+                const image = this.getAttribute('data-image');
+                fetch('/move_to_deleted', {
+                    method: 'POST',
+                    body: JSON.stringify({ image_name: image }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        imageContainer.remove(); // Remove the image container from the DOM
+                    } else {
+                        console.error('Failed to delete image');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+
+        function uploadImage() {
+            const formData = new FormData(document.getElementById('image-upload-form'));
+            fetch('/upload_image', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Optionally, you can add code to update the image pool dynamically
+                    location.reload(); // Reload the page to show the new image
+                } else {
+                    console.error('Failed to upload image');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function redirectToGallery() {
+            window.location.href = '/gallery';
+        }
+    </script>
+</body>
+</html>

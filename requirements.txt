@@ -1,0 +1,11 @@
+flask
+openai
+nltk
+requests
+pillow==9.2.0
+transliterate
+indic-transliteration
+moviepy
+gTTS
+deep-translator
+sumy
