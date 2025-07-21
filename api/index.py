@@ -26,15 +26,18 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../static", template_folder="../templates")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-base_folder = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\Text_Images"
-resized_image_folder = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\Resized_images"
-all_audio_folder = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\All_Audio"
-image_folder = os.path.join(app.root_path, resized_image_folder)
-deleted_folder = os.path.join(app.root_path, 'static/deleted_images')
-manually_added_images = set()
-UPLOAD_FOLDER = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\Resized_images"
+# base_folder = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\Text_Images"
+# resized_image_folder = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\Resized_images"
+# all_audio_folder = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\All_Audio"
+base_folder = os.path.join(BASE_DIR, "static", "Final_Integration", "Text_Images")
+resized_image_folder = os.path.join(BASE_DIR, "static", "Final_Integration", "Resized_images")
+all_audio_folder = os.path.join(BASE_DIR, "static", "Final_Integration", "All_Audio")
+image_folder = os.path.join(base_static_path, "Resized_images")
+deleted_folder = os.path.join(base_static_path, "deleted_images")
+UPLOAD_FOLDER = image_folder
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Define the upload folder and allowed extensions for file uploads
 UPLOAD_FOLDER1 = 'static/uploads'
@@ -64,7 +67,7 @@ def generate_summary(text, sentences_count=2):
     summary_text = " ".join(str(sentence) for sentence in summary)
     return summary_text
 def regenerate_data():
-    video = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\Videos"
+    video = r"static\Final_Integration\Videos"
     delete_all_folders(video)
     language_folders = [folder for folder in os.listdir(base_folder) if os.path.isdir(os.path.join(base_folder, folder))]
 
@@ -173,7 +176,7 @@ def submit():
     recent_links.append(link)
 
     return redirect(url_for('home', message='Article submitted successfully!'))
-@app.route('/image.html')
+@app.route('/image')
 def image_page():
     images = os.listdir(image_folder)
     deleted_images = os.listdir(deleted_folder)
@@ -229,10 +232,10 @@ def recent():
 
 @app.route('/generate_video', methods=['POST'])
 def generate_video():
-    base_folder = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\Text_Images"
-    resized_image_folder = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\Resized_images"
-    all_audio_folder = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\All_Audio"
-    video = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\Videos"
+    base_folder = os.path.join(final_integration_path, "Text_Images")
+    resized_image_folder = os.path.join(final_integration_path, "Resized_images")
+    all_audio_folder = os.path.join(final_integration_path, "All_Audio")
+    video = os.path.join(final_integration_path, "Videos")
     delete_all_folders(base_folder)
     delete_all_folders(all_audio_folder)
     delete_all_folders(video)
@@ -324,7 +327,7 @@ def generate_video():
         "bhojpuri": "hi",
         # "punjabi": "hi"
     }
-    output_folder = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\All_Audio"
+    output_folder = os.path.join(final_integration_path, "All_Audio")
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
     for lang, text in translate_all.items():
@@ -408,7 +411,7 @@ def generate_video():
      # List of image URLs (replace these with your own URLs)
     image_urls = filtered_urls # Add your URLs here
     # Directory where you want to save the downloaded images
-    save_directory = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\Resized_images"
+    save_directory = os.path.join(final_integration_path, "Resized_Images")
 
     # Create the save directory if it doesn't exist
     #os.makedirs(save_directory, exist_ok=True)
@@ -426,7 +429,7 @@ def generate_video():
     # Source directory containing the images to resize
     # Source directory containing the images to resize
    # Source directory containing the images to resize
-    source_directory = r"C:\Users\FTT\Desktop\parul imp\static\Final_Integration\Resized_images"
+    source_directory = os.path.join(final_integration_path, "Resized_Images")
     print("aya aya")
     # Desired size for the resized images (width, height)
     # Desired size for the resized images (width, height)
