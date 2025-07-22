@@ -11,3 +11,4 @@ Pillow
 requests
 gunicorn
 moviepy
+indic-transliteration
