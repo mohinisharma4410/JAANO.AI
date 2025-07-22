@@ -7,7 +7,7 @@ import pdfplumber
 import os
 from flask import Flask, request, jsonify, send_file
 from pytube import YouTube
-from moviepy.editor import VideoFileClip, AudioFileClip
+from moviepy import VideoFileClip, AudioFileClip
 from gtts import gTTS
 import speech_recognition as sr
 from deep_translator import GoogleTranslator
