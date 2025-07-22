@@ -25,7 +25,7 @@ from PIL import Image, ImageDraw, ImageFont
 from urllib.parse import urlparse, parse_qs
 from PIL import Image
 from concurrent.futures import ThreadPoolExecutor
-import transliterate
+# import transliterate
 from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
 from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips
 from gtts import gTTS
