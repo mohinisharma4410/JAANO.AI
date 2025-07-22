@@ -20,6 +20,7 @@ import base64
 import nltk
 import shutil
 nltk.download('punkt')
+nltk.download('punkt_tab')
 import requests
 from PIL import Image, ImageDraw, ImageFont
 from urllib.parse import urlparse, parse_qs
