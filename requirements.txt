@@ -11,4 +11,6 @@ Pillow
 requests
 gunicorn
 moviepy
+imageio
+imageio-ffmpeg
 indic-transliteration
