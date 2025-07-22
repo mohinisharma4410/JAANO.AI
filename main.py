@@ -7,11 +7,35 @@ import pdfplumber
 import os
 from flask import Flask, request, jsonify, send_file
 from pytube import YouTube
-from moviepy import VideoFileClip, AudioFileClip
+from moviepy.editor import VideoFileClip, AudioFileClip
 from gtts import gTTS
 import speech_recognition as sr
 from deep_translator import GoogleTranslator
-from indic_transliteration import transliterate, sanscript
+from flask import Flask, render_template, request, send_file, send_from_directory, jsonify,redirect,url_for
+import os
+import openai
+import string
+from werkzeug.utils import secure_filename
+from datetime import datetime
+import base64
+import nltk
+import shutil
+nltk.download('punkt')
+import requests
+from PIL import Image, ImageDraw, ImageFont
+from urllib.parse import urlparse, parse_qs
+from PIL import Image
+from concurrent.futures import ThreadPoolExecutor
+import transliterate
+from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
+from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips
+from gtts import gTTS
+from deep_translator import GoogleTranslator
+from indic_transliteration import sanscript
+from indic_transliteration.sanscript import transliterate
+from sumy.parsers.plaintext import PlaintextParser
+from sumy.nlp.tokenizers import Tokenizer
+from sumy.summarizers.lsa import LsaSummarizer
 import speech_recognition as sr
 nltk.download('punkt')
 cloudinary.config(
