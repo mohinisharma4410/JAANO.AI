@@ -16,6 +16,7 @@ import os
 import string
 from werkzeug.utils import secure_filename
 from datetime import datetime
+from io import BytesIO
 import base64
 import nltk
 import shutil
