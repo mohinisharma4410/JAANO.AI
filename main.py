@@ -13,7 +13,6 @@ import speech_recognition as sr
 from deep_translator import GoogleTranslator
 from flask import Flask, render_template, request, send_file, send_from_directory, jsonify,redirect,url_for
 import os
-import openai
 import string
 from werkzeug.utils import secure_filename
 from datetime import datetime
