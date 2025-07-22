@@ -1,0 +1,11 @@
+Flask
+sumy
+nltk
+pdfplumber
+pytube
+moviepy
+gTTS
+SpeechRecognition
+deep-translator
+cloudinary
+indic-transliteration
