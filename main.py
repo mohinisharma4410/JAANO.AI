@@ -37,6 +37,9 @@ from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 import speech_recognition as sr
 nltk.download('punkt')
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 cloudinary.config(
     cloud_name='dtjcecoee',
     api_key='248441932477955',
