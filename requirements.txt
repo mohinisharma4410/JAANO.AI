@@ -1,12 +1,13 @@
-gunicorn
 Flask
 sumy
-nltk
 pdfplumber
+nltk
 pytube
-moviepy
 gTTS
 SpeechRecognition
 deep-translator
 cloudinary
-indic-transliteration
+Pillow
+requests
+gunicorn
+moviepy
