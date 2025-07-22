@@ -11,7 +11,7 @@ from moviepy import VideoFileClip, AudioFileClip
 from gtts import gTTS
 import speech_recognition as sr
 from deep_translator import GoogleTranslator
-from indic_transliteration.sanscript import sanscript, transliterate
+from indic_transliteration import sanscript, transliterate
 import speech_recognition as sr
 nltk.download('punkt')
 cloudinary.config(
