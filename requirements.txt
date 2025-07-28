@@ -16,3 +16,4 @@ cloudinary
 Pillow
 indic-transliteration
 sumy
+uvicorn

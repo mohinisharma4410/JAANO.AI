@@ -289,7 +289,7 @@ def generate_video_cloud():
         audio_url = upload_to_cloudinary(audio_buffer, "video", f"cloud_audio/{target_language}_{title}")
 
         # Generate images with translated text
-        font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+        font_path = os.path.join('static', 'fonts', 'New_all_lang.ttf')
         lines = translated_text.split('.')[:3]
         img_urls = []
         for idx, line in enumerate(lines):
@@ -327,5 +327,13 @@ def generate_video_cloud():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0', port=5000)
+
+
+@app.route("/", methods=["GET"])
+def aagai():
+    return jsonify({"message": "Welcome to the Aagai API. Use the endpoints for summarization, transcription, translation, and video generation."})
+
+if __name__ == '__main__':
+    import os
+    port = int(os.environ.get("PORT", 8000))  # Azure passes the port via environment variable
+    app.run(host='0.0.0.0', port=port)
